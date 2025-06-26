@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vai-studio.world - Studio Game Indie Việt Nam</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for the animation and overall layout */
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif; /* Use Inter font */
+        }
+        /* Custom animation for the hero title */
+        @keyframes pulse-light {
+            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); }
+            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.5); }
+        }
+        .animate-pulse-light {
+            animation: pulse-light 3s infinite alternate;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Main Content Layer -->
+    <div class="main-content">
+        <!-- Header/Navigation -->
+        <header class="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-sm z-50 p-4 shadow-lg rounded-b-lg">
+            <nav class="container mx-auto flex justify-between items-center px-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img
+                        id="logo-image"
+                        src="v.png"
+                        alt="Vai-studio.world Logo"
+                        class="h-10 w-auto rounded-md shadow-md"
+                    />
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <ul class="hidden md:flex space-x-6">
+                    <li><a href="#gioi-thieu" class="text-gray-300 hover:text-white transition-colors duration-300">Giới Thiệu</a></li>
+                    <li><a href="#tro-choi" class="text-gray-300 hover:text-white transition-colors duration-300">Dự Án</a></li>
+                    <li><a href="#tin-tuc" class="text-gray-300 hover:text-white transition-colors duration-300">Tin Tức</a></li>
+                    <li><a href="#tuyen-dung" class="text-gray-300 hover:text-white transition-colors duration-300">Tuyển Dụng</a></li>
+                    <li><a href="#lien-he" class="text-gray-300 hover:text-white transition-colors duration-300">Liên Hệ</a></li>
+                </ul>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                            <path id="menu-icon-close" class-name="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;"></path>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu (conditionally rendered by JS) -->
+            <ul id="mobile-menu" class="md:hidden mt-4 space-y-2 px-4 pb-2 bg-black bg-opacity-90 rounded-b-lg shadow-inner" style="display: none;">
+                <li><a href="#gioi-thieu" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Giới Thiệu</a></li>
+                <li><a href="#tro-choi" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Dự Án</a></li>
+                <li><a href="#tin-tuc" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Tin Tức</a></li>
+                <li><a href="#tuyen-dung" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Tuyển Dụng</a></li>
+                <li><a href="#lien-he" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Liên Hệ</a></li>
+            </ul>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="flex flex-col items-center justify-center min-h-screen text-center px-4 pt-24 pb-8">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-500 animate-pulse-light">
+                VAI-STUDIO.WORLD
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl">
+                Nơi những câu chuyện game Việt Nam được thổi hồn!
+            </p>
+            <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                Khám Phá Dự Án Của Chúng Tôi
+            </button>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="gioi-thieu" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Giới Thiệu Về Chúng Tôi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-gray-300 text-lg leading-relaxed">
+                    <p class="mb-4">
+                        Vai-studio.world là một studio game indie đầy nhiệt huyết đến từ Việt Nam. Chúng tôi tin rằng game không chỉ là giải trí mà còn là một hình thức nghệ thuật, một cách để kể chuyện và kết nối mọi người. Với niềm đam mê cháy bỏng và sự sáng tạo không ngừng, chúng tôi nỗ lực tạo ra những tựa game độc đáo, mang đậm bản sắc văn hóa Việt Nam nhưng vẫn có sức hấp dẫn toàn cầu.
+                    </p>
+                    <p>
+                        Hiện tại, Vai-studio.world đang trong giai đoạn khởi nghiệp đầy hứa hẹn. Chúng tôi tập trung vào việc nghiên cứu, phát triển ý tưởng và xây dựng nền tảng vững chắc cho các dự án game tương lai. Mỗi bước đi của chúng tôi đều hướng tới việc mang đến những trải nghiệm giải trí đột phá và có ý nghĩa. Hãy cùng chúng tôi xây dựng thế giới game mới!
+                    </p>
+                </div>
+                <div class="rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                    <img
+                        src="about-us.png"
+                        alt="About Us Image"
+                        class="w-full h-auto object-cover"
+                    />
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section (formerly Games Section) -->
+        <section id="tro-choi" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Các Dự Án Đang Phát Triển</h2>
+            <div class="text-center text-gray-300 text-lg">
+                <p class="mb-4">
+                    Hiện tại, Vai-studio.world đang trong giai đoạn tiền sản xuất và phát triển các ý tưởng game đầy tiềm năng. Chúng tôi chưa có tựa game nào chính thức ra mắt, nhưng đội ngũ đang làm việc không ngừng để biến những ý tưởng sáng tạo thành hiện thực.
+                </p>
+                <p>
+                    Hãy theo dõi kênh tin tức của chúng tôi để không bỏ lỡ những thông tin cập nhật mới nhất về các dự án sắp tới!
+                </p>
+                <div class="mt-8">
+                    <!-- Updated image source to display "COMING SOON" -->
+                    <img src="https://placehold.co/800x400/2d3748/cbd5e0?text=COMING+SOON" alt="Coming Soon Projects" class="mx-auto rounded-xl shadow-xl border border-gray-800"/>
+                </div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="tin-tuc" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Tin Tức Mới Nhất</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- News Article 1 -->
+                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Vai-studio.world Bắt Đầu Khởi Nghiệp Với Đầy Nhiệt Huyết!</h3>
+                    <p class="text-gray-400 text-sm mb-3">Ngày 20 tháng 6, 2025</p>
+                    <p class="text-gray-300 mb-4">
+                        Chúng tôi chính thức thông báo Vai-studio.world đã được thành lập và đang trong giai đoạn xây dựng nền móng vững chắc cho tương lai của ngành game Việt Nam.
+                    </p>
+                    <a href="#" class="text-blue-500 hover:underline transition-colors duration-300">Đọc thêm</a>
+                </div>
+                <!-- News Article 2 -->
+                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Tìm Kiếm Cộng Sự: Tham Gia Đội Ngũ Sáng Lập Vai-studio.world!</h3>
+                    <p class="text-gray-400 text-sm mb-3">Ngày 15 tháng 6, 2025</p>
+                    <p class="text-gray-300 mb-4">
+                        Chúng tôi đang tuyển dụng các vị trí chủ chốt để cùng xây dựng những tựa game đầu tiên. Cơ hội tuyệt vời cho những ai yêu game và muốn tạo ra giá trị!
+                    </p>
+                    <a href="#" class="text-blue-500 hover:underline transition-colors duration-300">Đọc thêm</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Section -->
+        <section id="tuyen-dung" class="container mx-auto py-16 px-4 text-center">
+            <h2 class="text-4xl font-bold mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Cơ Hội Nghề Nghiệp</h2>
+            <p class="text-lg text-gray-300 mb-8">
+                Bạn có đam mê với game và muốn tạo ra những tác phẩm đột phá? Hãy gia nhập đội ngũ của Vai-studio.world! Chúng tôi luôn tìm kiếm những tài năng sáng tạo và nhiệt huyết.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Lập Trình Viên Game (Unity/Unreal Engine)</h3>
+                    <p class="text-gray-400 mb-4">Yêu cầu kinh nghiệm 2+ năm. Nắm vững C#/C++.</p>
+                    <button class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 shadow-md">
+                        Ứng Tuyển Ngay
+                    </button>
+                </div>
+                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
+                    <h3 class="text-2xl font-bold text-white mb-2">Họa Sĩ 3D/Concept Artist</h3>
+                    <p class="text-gray-400 mb-4">Có khả năng tạo hình nhân vật, môi trường và ý tưởng game.</p>
+                    <button class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 shadow-md">
+                        Ứng Tuyển Ngay
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="lien-he" class="container mx-auto py-16 px-4">
+            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Liên Hệ Với Chúng Tôi</h2>
+            <div class="max-w-xl mx-auto bg-gray-900 rounded-xl shadow-xl p-8 border border-gray-800">
+                <form>
+                    <div class="mb-4">
+                        <label for="name" class="block text-gray-300 text-lg font-medium mb-2">Họ Tên:</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Nhập họ tên của bạn"
+                        />
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-300 text-lg font-medium mb-2">Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Nhập email của bạn"
+                        />
+                    </div>
+                    <div class="mb-6">
+                        <label for="message" class="block text-gray-300 text-lg font-medium mb-2">Tin Nhắn:</label>
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            placeholder="Nội dung tin nhắn..."
+                        ></textarea>
+                    </div>
+                    <button
+                        type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 shadow-md transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+                    >
+                        Gửi Tin Nhắn
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 py-8 mt-12 text-center text-gray-400 border-t border-gray-800">
+            <div class="container mx-auto px-4">
+                <p>&copy; 2025 Vai-studio.world. All rights reserved.</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="#" class="hover:text-white transition-colors duration-300">Facebook</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">Twitter</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">YouTube</a>
+                    <a href="#" class="hover:text-white transition-colors duration-300">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- Mobile Menu Toggle Script ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        // Function to toggle mobile menu visibility
+        function toggleMobileMenu() {
+            const isHidden = mobileMenu.style.display === 'none' || mobileMenu.style.display === '';
+            if (isHidden) {
+                mobileMenu.style.display = 'block';
+                menuIconOpen.style.display = 'none';
+                menuIconClose.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+                menuIconOpen.style.display = 'block';
+                menuIconClose.style.display = 'none';
+            }
+        }
+
+        // Add event listener to the mobile menu button
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu when a link is clicked
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.style.display = 'none';
+                menuIconOpen.style.display = 'block';
+                menuIconClose.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
