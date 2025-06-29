@@ -1,267 +1,762 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vai-studio.world - Studio Game Indie Việt Nam</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="description" content="Vai-studio.world là studio game indie Việt Nam, nơi kể những câu chuyện game độc đáo với công nghệ hiện đại.">
+    <meta name="keywords" content="game indie, studio game Việt Nam, Vai-studio, game Việt, phát triển game">
+    <meta name="author" content="Vai-studio.world">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <style>
-        /* Custom styles for the animation and overall layout */
+        /* Base styles */
         body {
             margin: 0;
-            font-family: "Inter", sans-serif; /* Use Inter font */
+            font-family: "Inter", sans-serif;
+            /* Nền đen tuyền */
+            background: #000000; 
+            /* Hoặc gradient rất tối để có chút chiều sâu, bạn có thể chọn một trong hai */
+            /* background: linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #121212 100%); */
+            min-height: 100vh;
+            color: #fff; /* Ensure text color is defined for better consistency */
         }
-        /* Custom animation for the hero title */
-        @keyframes pulse-light {
-            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3); }
-            50% { text-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 255, 255, 0.5); }
+
+        /* Animated background particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden; /* Prevent particles from causing scrollbars */
         }
-        .animate-pulse-light {
-            animation: pulse-light 3s infinite alternate;
+
+        .particle {
+            position: absolute;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.4; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+        }
+
+        /* Enhanced hero animation */
+        @keyframes pulse-glow {
+            0%, 100% { 
+                text-shadow: 0 0 20px rgba(79, 172, 254, 0.5), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(147, 51, 234, 0.2);
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 0 0 30px rgba(79, 172, 254, 0.8), 0 0 60px rgba(236, 72, 153, 0.6), 0 0 90px rgba(147, 51, 234, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        .animate-pulse-glow {
+            animation: pulse-glow 4s infinite ease-in-out;
+        }
+
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Floating cards animation (refined for individual animation) */
+        @keyframes float-card {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Use data-animation-delay for more control */
+        .floating-card[data-animation-delay] {
+            animation: float-card 6s ease-in-out infinite;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Enhanced button effects */
+        .btn-enhanced {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+
+        .btn-enhanced::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-enhanced:hover::before {
+            left: 100%;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4facfe, #00f2fe, transparent);
+            margin: 4rem 0; /* Increased margin for better visual separation */
+        }
+
+        /* Ripple effect CSS */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+        }
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* New CSS for scroll animations */
+        .animate-fade-in {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        .animate-fade-in.is-visible {
+            opacity: 1;
+        }
+        .animate-fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-fade-in-down {
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-fade-in-down.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-slide-in-left.is-visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .animate-slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animate-slide-in-right.is-visible {
+            opacity: 1;
+            transform: translateX(0);
         }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-black text-white overflow-x-hidden">
 
-    <!-- Main Content Layer -->
-    <div class="main-content">
-        <!-- Header/Navigation -->
-        <header class="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-sm z-50 p-4 shadow-lg rounded-b-lg">
+    <div class="particles" id="particles"></div>
+
+    <div class="main-content relative z-10">
+        <header class="fixed top-0 left-0 w-full glass z-50 p-4 transition-all duration-300 backdrop-blur-md" id="main-header">
             <nav class="container mx-auto flex justify-between items-center px-4">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <img
-                        id="logo-image"
-                        src="V.png"
-                        alt="Vai-studio.world Logo"
-                        class="h-10 w-auto rounded-md shadow-md"
-                    />
-                </div>
+                <a href="#hero" class="flex items-center group">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-30 animate-pulse group-hover:opacity-50 transition-opacity duration-300"></div>
+                        <img
+                            id="logo-image"
+                            src="V.png"
+                            alt="Vai-studio.world Logo"
+                            class="relative h-12 w-auto rounded-full shadow-2xl border-2 border-blue-400 transform group-hover:scale-105 transition-transform duration-300"
+                        />
+                    </div>
+                    <span class="ml-4 text-2xl font-extrabold gradient-text hidden sm:block">VAI-STUDIO</span>
+                </a>
 
-                <!-- Desktop Navigation Links -->
-                <ul class="hidden md:flex space-x-6">
-                    <li><a href="#gioi-thieu" class="text-gray-300 hover:text-white transition-colors duration-300">Giới Thiệu</a></li>
-                    <li><a href="#tro-choi" class="text-gray-300 hover:text-white transition-colors duration-300">Dự Án</a></li>
-                    <li><a href="#tin-tuc" class="text-gray-300 hover:text-white transition-colors duration-300">Tin Tức</a></li>
-                    <li><a href="#tuyen-dung" class="text-gray-300 hover:text-white transition-colors duration-300">Tuyển Dụng</a></li>
-                    <li><a href="#lien-he" class="text-gray-300 hover:text-white transition-colors duration-300">Liên Hệ</a></li>
+                <ul class="hidden md:flex space-x-8">
+                    <li><a href="#gioi-thieu" class="text-gray-300 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group-link">
+                        Giới Thiệu
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-link-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#tro-choi" class="text-gray-300 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group-link">
+                        Dự Án
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-link-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#tin-tuc" class="text-gray-300 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group-link">
+                        Tin Tức
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-link-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#tuyen-dung" class="text-gray-300 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group-link">
+                        Tuyển Dụng
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-link-hover:w-full"></span>
+                    </a></li>
+                    <li><a href="#lien-he" class="text-gray-300 hover:text-blue-400 transition-all duration-300 hover:scale-110 relative group-link">
+                        Liên Hệ
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-link-hover:w-full"></span>
+                    </a></li>
                 </ul>
 
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none p-2 rounded-lg glass" aria-label="Toggle mobile menu">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                            <path id="menu-icon-close" class-name="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;"></path>
+                            <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
                 </div>
             </nav>
 
-            <!-- Mobile Menu (conditionally rendered by JS) -->
-            <ul id="mobile-menu" class="md:hidden mt-4 space-y-2 px-4 pb-2 bg-black bg-opacity-90 rounded-b-lg shadow-inner" style="display: none;">
-                <li><a href="#gioi-thieu" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Giới Thiệu</a></li>
-                <li><a href="#tro-choi" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Dự Án</a></li>
-                <li><a href="#tin-tuc" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Tin Tức</a></li>
-                <li><a href="#tuyen-dung" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Tuyển Dụng</a></li>
-                <li><a href="#lien-he" class="block py-2 text-gray-300 hover:text-white transition-colors duration-300 border-b border-gray-700">Liên Hệ</a></li>
+            <ul id="mobile-menu" class="md:hidden mt-4 space-y-3 px-4 pb-4 glass rounded-b-xl" style="display: none;">
+                <li><a href="#gioi-thieu" class="block py-3 text-gray-300 hover:text-blue-400 transition-all duration-300 border-b border-gray-700 hover:border-blue-400">Giới Thiệu</a></li>
+                <li><a href="#tro-choi" class="block py-3 text-gray-300 hover:text-blue-400 transition-all duration-300 border-b border-gray-700 hover:border-blue-400">Dự Án</a></li>
+                <li><a href="#tin-tuc" class="block py-3 text-gray-300 hover:text-blue-400 transition-all duration-300 border-b border-gray-700 hover:border-blue-400">Tin Tức</a></li>
+                <li><a href="#tuyen-dung" class="block py-3 text-gray-300 hover:text-blue-400 transition-all duration-300 border-b border-gray-700 hover:border-blue-400">Tuyển Dụng</a></li>
+                <li><a href="#lien-he" class="block py-3 text-gray-300 hover:text-blue-400 transition-all duration-300">Liên Hệ</a></li>
             </ul>
         </header>
 
-        <!-- Hero Section -->
-        <section id="hero" class="flex flex-col items-center justify-center min-h-screen text-center px-4 pt-24 pb-8">
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-red-500 animate-pulse-light">
-                VAI-STUDIO.WORLD
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl">
-                Nơi những câu chuyện game Việt Nam được thổi hồn!
-            </p>
-            <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
-                Khám Phá Dự Án Của Chúng Tôi
-            </button>
+        <section id="hero" class="flex flex-col items-center justify-center min-h-screen text-center px-4 pt-24 pb-8 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-900/10 to-purple-900/20"></div>
+            <div class="relative z-10 max-w-5xl">
+                <h1 class="text-6xl md:text-8xl font-black mb-6 gradient-text animate-pulse-glow leading-tight">
+                    VAI-STUDIO.WORLD
+                </h1>
+                <p class="text-xl md:text-3xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed font-light animate-fade-in-up">
+                    Nơi những câu chuyện game Việt Nam được thổi hồn với công nghệ hiện đại!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#tro-choi" class="btn-enhanced text-white font-bold py-4 px-10 rounded-full shadow-2xl transform transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                        Khám Phá Dự Án
+                    </a>
+                    <a href="#gioi-thieu" class="glass text-white font-semibold py-4 px-10 rounded-full shadow-xl transform transition-all duration-300 hover:scale-105 border border-blue-400/30 hover:border-blue-400">
+                        Tìm Hiểu Thêm
+                    </a>
+                </div>
+            </div>
         </section>
 
-        <!-- About Us Section -->
-        <section id="gioi-thieu" class="container mx-auto py-16 px-4">
-            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Giới Thiệu Về Chúng Tôi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="text-gray-300 text-lg leading-relaxed">
-                    <p class="mb-4">
-                        Vai-studio.world là một studio game indie đầy nhiệt huyết đến từ Việt Nam. Chúng tôi tin rằng game không chỉ là giải trí mà còn là một hình thức nghệ thuật, một cách để kể chuyện và kết nối mọi người. Với niềm đam mê cháy bỏng và sự sáng tạo không ngừng, chúng tôi nỗ lực tạo ra những tựa game độc đáo, mang đậm bản sắc văn hóa Việt Nam nhưng vẫn có sức hấp dẫn toàn cầu.
-                    </p>
-                    <p>
-                        Hiện tại, Vai-studio.world đang trong giai đoạn khởi nghiệp đầy hứa hẹn. Chúng tôi tập trung vào việc nghiên cứu, phát triển ý tưởng và xây dựng nền tảng vững chắc cho các dự án game tương lai. Mỗi bước đi của chúng tôi đều hướng tới việc mang đến những trải nghiệm giải trí đột phá và có ý nghĩa. Hãy cùng chúng tôi xây dựng thế giới game mới!
-                    </p>
+        <div class="section-divider"></div>
+
+        <section id="gioi-thieu" class="container mx-auto py-20 px-4">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text animate-fade-in-down">Về Chúng Tôi</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="floating-card glass p-8 rounded-3xl animate-slide-in-left" data-animation-delay="0s">
+                    <div class="text-gray-300 text-lg leading-relaxed space-y-6">
+                        <p class="text-xl font-medium text-blue-300">
+                            🎮 Vai-studio.world là một studio game indie đầy nhiệt huyết đến từ Việt Nam.
+                        </p>
+                        <p>
+                            Chúng tôi tin rằng game không chỉ là giải trí mà còn là một hình thức nghệ thuật, một cách để kể chuyện và kết nối mọi người. Với niềm đam mê cháy bỏng và sự sáng tạo không ngừng, chúng tôi nỗ lực tạo ra những tựa game độc đáo, mang đậm bản sắc văn hóa Việt Nam nhưng vẫn có sức hấp dẫn toàn cầu.
+                        </p>
+                        <p>
+                            🚀 Hiện tại, Vai-studio.world đang trong giai đoạn khởi nghiệp đầy hứa hẹn. Chúng tôi tập trung vào việc nghiên cứu, phát triển ý tưởng và xây dựng nền tảng vững chắc cho các dự án game tương lai.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <div class="glass px-4 py-2 rounded-full text-sm">🎯 Sáng tạo</div>
+                            <div class="glass px-4 py-2 rounded-full text-sm">🇻🇳 Bản sắc Việt</div>
+                            <div class="glass px-4 py-2 rounded-full text-sm">🌟 Chất lượng</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="rounded-xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500">
+                <div class="floating-card rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 relative animate-slide-in-right" data-animation-delay="0.2s">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20"></div>
                     <img
                         src="about-us.png"
-                        alt="About Us Image"
-                        class="w-full h-auto object-cover"
+                        alt="Hình ảnh đại diện về Vai-studio.world"
+                        class="w-full h-auto object-cover relative z-10"
+                        loading="lazy"
                     />
                 </div>
             </div>
         </section>
 
-        <!-- Projects Section (formerly Games Section) -->
-        <section id="tro-choi" class="container mx-auto py-16 px-4">
-            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Các Dự Án Đang Phát Triển</h2>
-            <div class="text-center text-gray-300 text-lg">
-                <p class="mb-4">
-                    Hiện tại, Vai-studio.world đang trong giai đoạn tiền sản xuất và phát triển các ý tưởng game đầy tiềm năng. Chúng tôi chưa có tựa game nào chính thức ra mắt, nhưng đội ngũ đang làm việc không ngừng để biến những ý tưởng sáng tạo thành hiện thực.
-                </p>
-                <p>
-                    Hãy theo dõi kênh tin tức của chúng tôi để không bỏ lỡ những thông tin cập nhật mới nhất về các dự án sắp tới!
-                </p>
-                <div class="mt-8">
-                    <!-- Updated image source to display "COMING SOON" -->
-                    <img src="https://placehold.co/800x400/2d3748/cbd5e0?text=COMING+SOON" alt="Coming Soon Projects" class="mx-auto rounded-xl shadow-xl border border-gray-800"/>
+        <div class="section-divider"></div>
+
+        <section id="tro-choi" class="container mx-auto py-20 px-4">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text animate-fade-in-down">Dự Án Đang Phát Triển</h2>
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="floating-card glass p-12 rounded-3xl mb-12 animate-slide-in-up" data-animation-delay="0s">
+                    <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                        🚧 Hiện tại, Vai-studio.world đang trong giai đoạn tiền sản xuất và phát triển các ý tưởng game đầy tiềm năng. Chúng tôi chưa có tựa game nào chính thức ra mắt, nhưng đội ngũ đang làm việc không ngừng để biến những ý tưởng sáng tạo thành hiện thực.
+                    </p>
+                    <p class="text-lg text-blue-300 font-medium">
+                        📢 Hãy theo dõi kênh tin tức của chúng tôi để không bỏ lỡ những thông tin cập nhật mới nhất!
+                    </p>
+                </div>
+                
+                <div class="relative group animate-fade-in" data-animation-delay="0.2s">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                    <div class="relative glass rounded-3xl p-8 border border-blue-400/30">
+                        <div class="flex items-center justify-center h-64 text-6xl font-bold gradient-text">
+                            COMING SOON
+                        </div>
+                        <p class="text-gray-400 mt-4">Những dự án đầy hứa hẹn đang được ấp ủ...</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- News Section -->
-        <section id="tin-tuc" class="container mx-auto py-16 px-4">
-            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Tin Tức Mới Nhất</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- News Article 1 -->
-                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
-                    <h3 class="text-2xl font-bold text-white mb-2">Vai-studio.world Bắt Đầu Khởi Nghiệp Với Đầy Nhiệt Huyết!</h3>
-                    <p class="text-gray-400 text-sm mb-3">Ngày 20 tháng 6, 2025</p>
-                    <p class="text-gray-300 mb-4">
+        <div class="section-divider"></div>
+
+        <section id="tin-tuc" class="container mx-auto py-20 px-4">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text animate-fade-in-down">Tin Tức Mới Nhất</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="floating-card glass rounded-3xl shadow-2xl p-8 border border-blue-400/30 hover:border-blue-400/60 transition-all duration-300 animate-slide-in-left" data-animation-delay="0s">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                        <span class="text-green-400 text-sm font-medium">MỚI NHẤT</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 leading-tight">Vai-studio.world Bắt Đầu Khởi Nghiệp Với Đầy Nhiệt Huyết! 🚀</h3>
+                    <p class="text-gray-400 text-sm mb-4">📅 Ngày 20 tháng 6, 2025</p>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
                         Chúng tôi chính thức thông báo Vai-studio.world đã được thành lập và đang trong giai đoạn xây dựng nền móng vững chắc cho tương lai của ngành game Việt Nam.
                     </p>
-                    <a href="#" class="text-blue-500 hover:underline transition-colors duration-300">Đọc thêm</a>
+                    <a href="#" class="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors duration-300 font-medium group-link">
+                        Đọc thêm 
+                        <svg class="w-4 h-4 ml-1 transform group-link-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
                 </div>
-                <!-- News Article 2 -->
-                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
-                    <h3 class="text-2xl font-bold text-white mb-2">Tìm Kiếm Cộng Sự: Tham Gia Đội Ngũ Sáng Lập Vai-studio.world!</h3>
-                    <p class="text-gray-400 text-sm mb-3">Ngày 15 tháng 6, 2025</p>
-                    <p class="text-gray-300 mb-4">
+
+                <div class="floating-card glass rounded-3xl shadow-2xl p-8 border border-purple-400/30 hover:border-purple-400/60 transition-all duration-300 animate-slide-in-right" data-animation-delay="0.2s">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-purple-400 rounded-full mr-3 animate-pulse"></div>
+                        <span class="text-purple-400 text-sm font-medium">TUYỂN DỤNG</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 leading-tight">Tìm Kiếm Cộng Sự: Tham Gia Đội Ngũ Sáng Lập! 👥</h3>
+                    <p class="text-gray-400 text-sm mb-4">📅 Ngày 15 tháng 6, 2025</p>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
                         Chúng tôi đang tuyển dụng các vị trí chủ chốt để cùng xây dựng những tựa game đầu tiên. Cơ hội tuyệt vời cho những ai yêu game và muốn tạo ra giá trị!
                     </p>
-                    <a href="#" class="text-blue-500 hover:underline transition-colors duration-300">Đọc thêm</a>
+                    <a href="#" class="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors duration-300 font-medium group-link">
+                        Đọc thêm 
+                        <svg class="w-4 h-4 ml-1 transform group-link-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </section>
 
-        <!-- Career Section -->
-        <section id="tuyen-dung" class="container mx-auto py-16 px-4 text-center">
-            <h2 class="text-4xl font-bold mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Cơ Hội Nghề Nghiệp</h2>
-            <p class="text-lg text-gray-300 mb-8">
-                Bạn có đam mê với game và muốn tạo ra những tác phẩm đột phá? Hãy gia nhập đội ngũ của Vai-studio.world! Chúng tôi luôn tìm kiếm những tài năng sáng tạo và nhiệt huyết.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
-                    <h3 class="text-2xl font-bold text-white mb-2">Lập Trình Viên Game (Unity/Unreal Engine)</h3>
-                    <p class="text-gray-400 mb-4">Yêu cầu kinh nghiệm 2+ năm. Nắm vững C#/C++.</p>
-                    <button class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 shadow-md">
+        <div class="section-divider"></div>
+
+        <section id="tuyen-dung" class="container mx-auto py-20 px-4">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text animate-fade-in-down">Cơ Hội Nghề Nghiệp</h2>
+            <div class="text-center mb-12">
+                <p class="text-xl text-gray-300 mb-4 max-w-3xl mx-auto leading-relaxed">
+                    💼 Bạn có đam mê với game và muốn tạo ra những tác phẩm đột phá? Hãy gia nhập đội ngũ của Vai-studio.world!
+                </p>
+                <p class="text-lg text-blue-300">
+                    🌟 Chúng tôi luôn tìm kiếm những tài năng sáng tạo và nhiệt huyết.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="floating-card glass rounded-3xl shadow-2xl p-8 border border-green-400/30 hover:border-green-400/60 transition-all duration-300 group animate-slide-in-left" data-animation-delay="0s">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl" role="img" aria-label="Laptop emoji">💻</span>
+                        </div>
+                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Lập Trình Viên Game</h3>
+                    <p class="text-green-400 font-medium mb-2">Unity/Unreal Engine</p>
+                    <p class="text-gray-400 mb-6">Yêu cầu kinh nghiệm 2+ năm. Nắm vững C#/C++.</p>
+                    <button class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg transform group-hover:scale-105">
                         Ứng Tuyển Ngay
                     </button>
                 </div>
-                <div class="bg-gray-900 rounded-xl shadow-xl p-6 border border-gray-800">
-                    <h3 class="text-2xl font-bold text-white mb-2">Họa Sĩ 3D/Concept Artist</h3>
-                    <p class="text-gray-400 mb-4">Có khả năng tạo hình nhân vật, môi trường và ý tưởng game.</p>
-                    <button class="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300 shadow-md">
+
+                <div class="floating-card glass rounded-3xl shadow-2xl p-8 border border-pink-400/30 hover:border-pink-400/60 transition-all duration-300 group animate-slide-in-right" data-animation-delay="0.2s">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-r from-pink-400 to-purple-500 rounded-xl flex items-center justify-center mr-4">
+                            <span class="text-2xl" role="img" aria-label="Palette emoji">🎨</span>
+                        </div>
+                        <div class="w-3 h-3 bg-pink-400 rounded-full animate-pulse"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">Họa Sĩ 3D/Concept Artist</h3>
+                    <p class="text-pink-400 font-medium mb-2">Sáng tạo & Nghệ thuật</p>
+                    <p class="text-gray-400 mb-6">Có khả năng tạo hình nhân vật, môi trường và ý tưởng game.</p>
+                    <button class="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg transform group-hover:scale-105">
                         Ứng Tuyển Ngay
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="lien-he" class="container mx-auto py-16 px-4">
-            <h2 class="text-4xl font-bold text-center mb-10 text-gray-100 border-b-2 border-gray-700 pb-4">Liên Hệ Với Chúng Tôi</h2>
-            <div class="max-w-xl mx-auto bg-gray-900 rounded-xl shadow-xl p-8 border border-gray-800">
-                <form>
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-300 text-lg font-medium mb-2">Họ Tên:</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Nhập họ tên của bạn"
-                        />
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-300 text-lg font-medium mb-2">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Nhập email của bạn"
-                        />
-                    </div>
-                    <div class="mb-6">
-                        <label for="message" class="block text-gray-300 text-lg font-medium mb-2">Tin Nhắn:</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="5"
-                            class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="Nội dung tin nhắn..."
-                        ></textarea>
-                    </div>
-                    <button
-                        type="submit"
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 shadow-md transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
-                    >
-                        Gửi Tin Nhắn
-                    </button>
-                </form>
+        <div class="section-divider"></div>
+
+        <section id="lien-he" class="container mx-auto py-20 px-4">
+            <h2 class="text-5xl font-bold text-center mb-16 gradient-text animate-fade-in-down">Liên Hệ Với Chúng Tôi</h2>
+            <div class="max-w-2xl mx-auto">
+                <div class="floating-card glass rounded-3xl shadow-2xl p-10 border border-blue-400/30 animate-fade-in-up" data-animation-delay="0s">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-gray-300 text-lg font-medium mb-3">Họ Tên <span role="img" aria-label="Person emoji">👤</span></label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="w-full px-6 py-4 rounded-xl glass border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                                placeholder="Nhập họ tên của bạn"
+                                required
+                                aria-required="true"
+                            />
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-300 text-lg font-medium mb-3">Email <span role="img" aria-label="Envelope emoji">📧</span></label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                class="w-full px-6 py-4 rounded-xl glass border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                                placeholder="Nhập email của bạn"
+                                required
+                                aria-required="true"
+                            />
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-300 text-lg font-medium mb-3">Tin Nhắn <span role="img" aria-label="Speech bubble emoji">💬</span></label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                class="w-full px-6 py-4 rounded-xl glass border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
+                                placeholder="Nội dung tin nhắn..."
+                                required
+                                aria-required="true"
+                            ></textarea>
+                        </div>
+                        <button
+                            type="submit"
+                            class="w-full btn-enhanced text-white font-bold py-4 px-8 rounded-xl shadow-2xl transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+                        >
+                            Gửi Tin Nhắn ✨
+                        </button>
+                    </form>
+                </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="bg-gray-900 py-8 mt-12 text-center text-gray-400 border-t border-gray-800">
+        <footer class="glass mt-20 py-12 text-center border-t border-gray-700">
             <div class="container mx-auto px-4">
-                <p>&copy; 2025 Vai-studio.world. All rights reserved.</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="https://www.facebook.com/profile.php?id=61573913810861" class="hover:text-white transition-colors duration-300">Facebook</a>
-                    <a href="#" class="hover:text-white transition-colors duration-300">Twitter</a>
-                    <a href="#" class="hover:text-white transition-colors duration-300">YouTube</a>
-                    <a href="#" class="hover:text-white transition-colors duration-300">LinkedIn</a>
+                <div class="mb-8">
+                    <div class="gradient-text text-2xl font-bold mb-4">VAI-STUDIO.WORLD</div>
+                    <p class="text-gray-400">Tạo nên những trải nghiệm game độc đáo từ Việt Nam</p>
                 </div>
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://www.facebook.com/profile.php?id=61573913810861" class="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:scale-110" aria-label="Our Facebook page">
+                        <i class="fab fa-facebook-f text-2xl"></i> Facebook
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition-all duration-300 hover:scale-110" aria-label="Our Twitter page">
+                        <i class="fab fa-twitter text-2xl"></i> Twitter
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-red-400 transition-all duration-300 hover:scale-110" aria-label="Our YouTube channel">
+                        <i class="fab fa-youtube text-2xl"></i> YouTube
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-600 transition-all duration-300 hover:scale-110" aria-label="Our LinkedIn profile">
+                        <i class="fab fa-linkedin-in text-2xl"></i> LinkedIn
+                    </a>
+                </div>
+                <div class="section-divider opacity-50"></div>
+                <p class="text-gray-500 text-sm">
+                    &copy; 2025 Vai-studio.world. All rights reserved. Made with <span role="img" aria-label="Red heart emoji">❤️</span> in Vietnam
+                </p>
             </div>
         </footer>
     </div>
 
     <script>
+        // --- Utility function for getting random values ---
+        const getRandom = (min, max) => Math.random() * (max - min) + min;
+
+        // --- Animated Background Particles ---
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const numberOfParticles = 50; // Keep this reasonable for performance
+
+            for (let i = 0; i < numberOfParticles; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size, position, and animation properties
+                const size = getRandom(2, 8); // Size between 2-8px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${getRandom(0, 100)}%`;
+                particle.style.top = `${getRandom(0, 100)}%`;
+                particle.style.animationDuration = `${getRandom(6, 10)}s`; // Slower, more subtle float
+                particle.style.animationDelay = `${getRandom(0, 4)}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
         // --- Mobile Menu Toggle Script ---
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIconOpen = document.getElementById('menu-icon-open');
         const menuIconClose = document.getElementById('menu-icon-close');
 
-        // Function to toggle mobile menu visibility
-        function toggleMobileMenu() {
-            const isHidden = mobileMenu.style.display === 'none' || mobileMenu.style.display === '';
+        const toggleMobileMenu = () => {
+            const isHidden = mobileMenu.classList.contains('hidden');
             if (isHidden) {
-                mobileMenu.style.display = 'block';
-                menuIconOpen.style.display = 'none';
-                menuIconClose.style.display = 'block';
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.style.display = 'block'; /* Ensure it becomes block for animations */
+                menuIconOpen.classList.add('hidden');
+                menuIconClose.classList.remove('hidden');
             } else {
-                mobileMenu.style.display = 'none';
-                menuIconOpen.style.display = 'block';
-                menuIconClose.style.display = 'none';
+                mobileMenu.classList.add('hidden');
+                mobileMenu.style.display = 'none'; /* Hide after transition for a clean state */
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
             }
-        }
+        };
 
-        // Add event listener to the mobile menu button
         mobileMenuButton.addEventListener('click', toggleMobileMenu);
 
         // Close mobile menu when a link is clicked
-        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-        mobileMenuLinks.forEach(link => {
+        mobileMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
                 mobileMenu.style.display = 'none';
-                menuIconOpen.style.display = 'block';
-                menuIconClose.style.display = 'none';
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
             });
         });
+
+        // --- Smooth Scrolling for Navigation Links (using native scroll-smooth) ---
+        // Added `scroll-smooth` class to HTML tag for native smooth scrolling.
+        // The JavaScript part can be simplified, or used for more complex offset logic if needed.
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#') {
+                    // Prevent default for empty hash links
+                    e.preventDefault();
+                    return;
+                }
+
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault(); // Prevent default link behavior if target exists
+                    const headerOffset = document.getElementById('main-header').offsetHeight; // Get header height
+                    const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                    const offsetPosition = elementPosition - headerOffset - 20; // Add a little extra padding
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+
+        // --- Header Background on Scroll ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) { // Smaller threshold for faster change
+                header.classList.add('bg-black', 'bg-opacity-95', 'border-b', 'border-gray-700');
+                header.classList.remove('glass', 'border', 'border-white/10');
+            } else {
+                header.classList.remove('bg-black', 'bg-opacity-95', 'border-b', 'border-gray-700');
+                header.classList.add('glass', 'border', 'border-white/10');
+            }
+        });
+
+        // --- Intersection Observer for Animations ---
+        const animateOnScroll = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible'); // Add a class to trigger CSS animations
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(animateOnScroll, {
+            threshold: 0.2, // Trigger when 20% of the element is visible
+            rootMargin: '0px 0px -50px 0px' // Offset the viewport bottom by 50px
+        });
+
+        // Observe elements with specific animation classes
+        document.querySelectorAll('.animate-fade-in, .animate-fade-in-up, .animate-fade-in-down, .animate-slide-in-left, .animate-slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+
+        // --- Initialize Particles ---
+        createParticles();
+
+        // --- Form Submission Enhancement (Client-side validation & feedback) ---
+        const contactForm = document.querySelector('#lien-he form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+
+                // Basic client-side validation
+                const nameInput = document.getElementById('name');
+                const emailInput = document.getElementById('email');
+                const messageTextarea = document.getElementById('message');
+
+                if (!nameInput.value || !emailInput.value || !messageTextarea.value) {
+                    alert('Vui lòng điền đầy đủ tất cả các trường.');
+                    return;
+                }
+
+                submitButton.textContent = 'Đang gửi... ⏳';
+                submitButton.disabled = true;
+                submitButton.classList.add('opacity-70', 'cursor-not-allowed');
+
+                // Simulate API call
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+                    // In a real application, you would send data to a server here:
+                    // const response = await fetch('/api/contact', {
+                    //     method: 'POST',
+                    //     headers: { 'Content-Type': 'application/json' },
+                    //     body: JSON.stringify({
+                    //         name: nameInput.value,
+                    //         email: emailInput.value,
+                    //         message: messageTextarea.value
+                    //     })
+                    // });
+                    // if (!response.ok) throw new Error('Network response was not ok.');
+                    // const data = await response.json();
+                    // console.log('Form submission successful:', data);
+
+                    submitButton.textContent = 'Đã gửi thành công! ✅';
+                    submitButton.classList.remove('from-blue-500', 'to-purple-500', 'hover:from-blue-600', 'hover:to-purple-600');
+                    submitButton.classList.add('bg-green-600', 'hover:bg-green-700'); // Indicate success
+                    contactForm.reset(); // Clear form fields
+                    
+                } catch (error) {
+                    console.error('Form submission failed:', error);
+                    submitButton.textContent = 'Gửi thất bại! ❌';
+                    submitButton.classList.remove('from-blue-500', 'to-purple-500', 'hover:from-blue-600', 'hover:to-purple-600');
+                    submitButton.classList.add('bg-red-600', 'hover:bg-red-700'); // Indicate failure
+                } finally {
+                    setTimeout(() => {
+                        submitButton.textContent = originalText;
+                        submitButton.disabled = false;
+                        submitButton.classList.remove('opacity-70', 'cursor-not-allowed', 'bg-green-600', 'hover:bg-green-700', 'bg-red-600', 'hover:bg-red-700');
+                        submitButton.classList.add('btn-enhanced'); // Restore original button style
+                    }, 2000);
+                }
+            });
+        }
+
+        // --- Dynamic Gradient Text Color ---
+        let hue = 0;
+        const updateGradientText = () => {
+            hue = (hue + 0.5) % 360; // Slower color shift
+            const gradientTexts = document.querySelectorAll('.gradient-text');
+            gradientTexts.forEach(text => {
+                text.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 60%) 0%, hsl(${(hue + 60) % 360}, 70%, 60%) 100%)`;
+                text.style.webkitBackgroundClip = 'text';
+                text.style.webkitTextFillColor = 'transparent';
+            });
+            requestAnimationFrame(updateGradientText); // Use requestAnimationFrame for smoother animation
+        };
+        requestAnimationFrame(updateGradientText);
+
+
+        // --- Floating Animation Randomization for existing elements ---
+        document.querySelectorAll('.floating-card').forEach((card, index) => {
+            // Apply animation delay if not already set by data-animation-delay
+            if (!card.dataset.animationDelay) {
+                card.style.animationDelay = `${getRandom(0, 1)}s`; // Randomize start of float animation
+            }
+            card.style.animationDuration = `${getRandom(5, 7)}s`; // Slightly vary duration
+        });
+
+        // --- Add Click Ripple Effect ---
+        function createRipple(event) {
+            const button = event.currentTarget;
+            // Only add ripple if it's a button or an anchor acting like a button
+            if (!button.classList.contains('btn-enhanced') && !button.classList.contains('glass')) return;
+
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = `${size}px`;
+            ripple.style.left = `${x}px`;
+            ripple.style.top = `${y}px`;
+            ripple.classList.add('ripple');
+            
+            button.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('button, .btn-enhanced, .glass').forEach(element => {
+            if (element.tagName === 'BUTTON' || element.classList.contains('btn-enhanced') || (element.classList.contains('glass') && element.tagName === 'A')) {
+                element.style.position = 'relative';
+                element.style.overflow = 'hidden';
+                element.addEventListener('click', createRipple);
+            }
+        });
+
     </script>
 </body>
 </html>
